@@ -1,4 +1,4 @@
-# getting-and-cleaning-data-course-project
+# Getting-and-cleaning-data-course-project
 This is the course project for the Getting and Cleaning Data Coursera course. 
 
 The dataset being used is: [Human Activity Recognition Using Smartphones](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
