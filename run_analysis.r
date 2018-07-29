@@ -10,10 +10,12 @@ subject_Test <- read.table("UCI HAR Dataset/test/subject_test.txt")
 x_Test <- read.table("UCI HAR Dataset/test/X_test.txt")
 y_Test <- read.table("UCI HAR Dataset/test/y_test.txt")
 
-activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt")
+activities <- read.table("UCI HAR Dataset/activity_labels.txt")
+colnames(activities) <- c("activityId", "activityLabel")
 features <- read.table("UCI HAR Dataset/features.txt")
-str(features)
 
+
+str(features)
 str(y_Test)
 str(y_Train)
 str(x_Test)
@@ -35,8 +37,8 @@ mergeData<-cbind(subjectData, activityData, featuresData)
 
 # 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
 
-requiredFeatures <- features[grep('-(mean|std)\\\\(\\\\)', features[, 2 ]), 2]
-fullData <- mergeData[, c(1, 2, requiredFeatures)]
+requiredFeatures  <- grepl("subject|activity|mean|std", colnames(mergeData))
+fullData <- mergeData[, requiredFeatures]
 
 # 3. Uses descriptive activity names to name the activities in the data set
 fullData[, 2] <- activity_labels[fullData[,2], 2]
@@ -49,7 +51,7 @@ names(fullData)<-gsub("Acc", "Acceleration", names(fullData))
 names(fullData)<-gsub("Mag", "Magnitude", names(fullData))
 names(fullData)<-gsub("BodyBody", "Body", names(fullData))
 names(fullData)<-gsub("mean", "Mean", names(fullData))
-names(fullData)<-gsub("std", "Std", names(fullData))
+names(fullData)<-gsub("std", "StandardDeviation", names(fullData))
 names(fullData)<-gsub("Gyro", "Gyroscope", names(fullData))
 
 names(fullData)
